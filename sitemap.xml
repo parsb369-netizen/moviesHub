@@ -5,9 +5,41 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-<url>
-  <loc>https://movies-hub-c1.vercel.app/</loc>
-  <lastmod>2026-03-15T15:58:22+00:00</lastmod>
-</url>
+  <url>
+    <loc>https://movies-hub-c1.vercel.app/</loc>
+    <lastmod>2026-03-15T15:58:22+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>https://movies-hub-c1.vercel.app/movies</loc>
+    <lastmod>2026-03-18T10:00:00+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>https://movies-hub-c1.vercel.app/tvshows</loc>
+    <lastmod>2026-03-18T10:00:00+00:00</lastmod>
+  </url>
+
+  <!-- Example movie pages -->
+  <url>
+    <loc>https://movies-hub-c1.vercel.app/movies/inception</loc>
+    <lastmod>2026-03-18T10:00:00+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>https://movies-hub-c1.vercel.app/movies/interstellar</loc>
+    <lastmod>2026-03-18T10:00:00+00:00</lastmod>
+  </url>
+
+  <!-- Example TV show pages -->
+  <url>
+    <loc>https://movies-hub-c1.vercel.app/tvshows/friends</loc>
+    <lastmod>2026-03-18T10:00:00+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>https://movies-hub-c1.vercel.app/tvshows/breaking-bad</loc>
+    <lastmod>2026-03-18T10:00:00+00:00</lastmod>
+  </url>
 
 </urlset>
