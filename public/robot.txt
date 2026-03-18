@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://movies-hub-c1.vercel.app/sitemap.xml
