@@ -1,33 +1,13 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
->>>>>>> 715fc71eb6e6c7075133aed69090bb9da1400452
 
 <url>
   <loc>https://movies-hub-c1.vercel.app/</loc>
   <lastmod>2026-03-15T15:58:22+00:00</lastmod>
-<<<<<<< HEAD
 </url>
 
-
-=======
-</url>
-
-
->>>>>>> 715fc71eb6e6c7075133aed69090bb9da1400452
 </urlset>
