@@ -7,26 +7,39 @@ interface Props {
 }
 
 const MovieCard = ({ movieResult }: Props) => {
-  const navigate = useNavigate(); // FIX 1
+  const navigate = useNavigate();
 
+  const title = movieResult.title ? movieResult.title : movieResult.name;
   const imageUrl = `https://image.tmdb.org/t/p/w500${movieResult.poster_path}`;
 
   return (
     <Card
-      className="border-0 shadow-md hover:scale-105 transition"
+      className="border-0 shadow-md hover:scale-105 transition cursor-pointer"
       onClick={() => {
-        navigate(`/player/${movieResult.id}`); // FIX 2
+        navigate(`/player/${movieResult.id}`);
       }}
     >
       <CardContent className="p-0">
+
+        {/* SEO Optimized Image */}
         <img
           src={imageUrl}
-          alt={movieResult.title}
+          alt={`Watch ${title} full movie online in HD`}
+          loading="lazy"
           className="w-full rounded-lg hover:opacity-30 transition-all"
         />
-        <h1 className="mt-3">
-          {movieResult.title ? movieResult.title : movieResult.name}
-        </h1>
+
+        {/* Title (important for SEO) */}
+        <h2 className="mt-3 font-medium text-sm px-1">
+          {title}
+        </h2>
+
+        {/* Hidden SEO Description (very important for indexing) */}
+        <p style={{ display: "none" }}>
+          Watch {title} full movie online in HD quality. Stream latest Bollywood
+          and Hollywood movies, action, thriller, and trending films for free.
+        </p>
+
       </CardContent>
     </Card>
   );
