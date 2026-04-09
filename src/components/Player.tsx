@@ -14,7 +14,7 @@ const Player = () => {
     const [episode, setEpisode] = useState(1);
     const [loading, setLoading] = useState(true);
 
-    // 🎬 FINAL CLEAN SERVERS
+    // 🎬 LOW-ADS SERVERS
     const servers = [
         {
             name: "VidSrc",
@@ -31,11 +31,18 @@ const Player = () => {
                     : `https://multiembed.mov/?video_id=${playerId}&tmdb=1`
         },
         {
-            name: "CloudPlay",
+            name: "HnEmbed",
             getUrl: () =>
                 type === 'tv'
-                    ? `https://cloudplay.to/embed/tv/${playerId}/${season}/${episode}`
-                    : `https://cloudplay.to/embed/movie/${playerId}`
+                    ? `https://hnembed.com/embed/tv/${playerId}/${season}/${episode}`
+                    : `https://hnembed.com/embed/movie/${playerId}`
+        },
+        {
+            name: "VikingEmbed",
+            getUrl: () =>
+                type === 'tv'
+                    ? `https://vembed.stream/embed/tv/${playerId}/${season}/${episode}`
+                    : `https://vembed.stream/embed/movie/${playerId}`
         }
     ];
 
@@ -142,7 +149,7 @@ const Player = () => {
 
             {/* ⚠️ MESSAGE */}
             <p className="px-3 text-sm text-yellow-400">
-                If one server doesn’t work, try another.
+                If video doesn’t play, switch server.
             </p>
 
             {/* ⏳ LOADING */}
@@ -167,7 +174,7 @@ const Player = () => {
             {/* Hidden SEO */}
             <div style={{ display: "none" }}>
                 {type === 'tv'
-                    ? "watch tv shows online free, latest web series hd, trending tv shows"
+                    ? "watch tv shows online free, latest web series hd"
                     : "watch movies online free hd, latest bollywood hollywood movies"}
             </div>
 
