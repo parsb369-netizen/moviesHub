@@ -1,21 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 
 const Player = () => {
     const { playerId } = useParams();
     const location = useLocation();
 
-    // Read query params
     const searchParams = new URLSearchParams(location.search);
     const type = searchParams.get('type') || 'movie';
 
-    // Construct the URL dynamically
-    const streamUrl =
-        type === 'tv'
-            ? `https://vidsrc-embed.ru/embed/tv/${playerId}`
-            : `https://vidsrc-embed.ru/embed/movie/${playerId}`;
+    // 🎯 STATES
+    const [server, setServer] = useState(0);
+    const [season, setSeason] = useState(1);
+    const [episode, setEpisode] = useState(1);
+    const [loading, setLoading] = useState(true);
 
-    // SEO Improvements
+    // 🎬 SERVERS
+    const servers = [
+        {
+            name: "VidSrc",
+            getUrl: () =>
+                type === 'tv'
+                    ? `https://vidsrc-embed.ru/embed/tv/${playerId}/${season}/${episode}`
+                    : `https://vidsrc-embed.ru/embed/movie/${playerId}`
+        },
+        {
+            name: "GoDrive",
+            getUrl: () =>
+                type === 'tv'
+                    ? `https://godriveplayer.com/embed/tv/${playerId}/${season}/${episode}`
+                    : `https://godriveplayer.com/embed/movie/${playerId}`
+        },
+        {
+            name: "VidLink",
+            getUrl: () =>
+                type === 'tv'
+                    ? `https://vidlink.pro/tv/${playerId}/${season}/${episode}`
+                    : `https://vidlink.pro/movie/${playerId}`
+        }
+    ];
+
+    const currentUrl = servers[server].getUrl();
+
+    // 🔁 AUTO SWITCH (LIMITED - iframe restriction)
+    const handleError = () => {
+        if (server < servers.length - 1) {
+            setServer(server + 1);
+        }
+    };
+
+    // 🎯 SEO
     useEffect(() => {
         const titleText =
             type === 'tv'
@@ -38,7 +71,7 @@ const Player = () => {
     return (
         <div>
 
-            {/* ✅ GAME CHANGER (VISIBLE SEO CONTENT) */}
+            {/* ✅ SEO CONTENT */}
             <h1 className="text-xl font-semibold p-3">
                 {type === 'tv'
                     ? "Watch TV Show Online in HD"
@@ -47,25 +80,95 @@ const Player = () => {
 
             <p className="px-3 text-sm text-gray-400">
                 {type === 'tv'
-                    ? "Stream latest TV shows and web series online in HD quality. Watch trending and popular series easily."
-                    : "Watch latest Bollywood and Hollywood movies online in HD quality. Stream action, thriller, and trending films easily."}
+                    ? "Stream latest TV shows and web series online in HD quality."
+                    : "Watch latest Bollywood and Hollywood movies online in HD quality."}
             </p>
 
-            {/* Hidden SEO keywords */}
-            <div style={{ display: "none" }}>
-                {type === 'tv'
-                    ? "watch tv shows online free, latest web series hd, trending tv shows, stream series online"
-                    : "watch movies online free hd, latest bollywood hollywood movies, action thriller films streaming"}
+            {/* 🎬 SERVER SWITCH */}
+            <div className="px-3 py-2 flex gap-2 flex-wrap">
+                {servers.map((s, index) => (
+                    <button
+                        key={index}
+                        onClick={() => {
+                            setServer(index);
+                            setLoading(true);
+                        }}
+                        className={`px-3 py-1 rounded ${
+                            server === index
+                                ? 'bg-blue-500 text-white'
+                                : 'bg-gray-700 text-white'
+                        }`}
+                    >
+                        {s.name}
+                    </button>
+                ))}
             </div>
 
+            {/* 📺 SEASON + EPISODE */}
+            {type === 'tv' && (
+                <div className="px-3 py-2 flex gap-3">
+                    <select
+                        value={season}
+                        onChange={(e) => {
+                            setSeason(Number(e.target.value));
+                            setLoading(true);
+                        }}
+                        className="bg-gray-800 text-white p-2 rounded"
+                    >
+                        {[...Array(10)].map((_, i) => (
+                            <option key={i} value={i + 1}>
+                                Season {i + 1}
+                            </option>
+                        ))}
+                    </select>
+
+                    <select
+                        value={episode}
+                        onChange={(e) => {
+                            setEpisode(Number(e.target.value));
+                            setLoading(true);
+                        }}
+                        className="bg-gray-800 text-white p-2 rounded"
+                    >
+                        {[...Array(20)].map((_, i) => (
+                            <option key={i} value={i + 1}>
+                                Episode {i + 1}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            )}
+
+            {/* ⚠️ MESSAGE */}
+            <p className="px-3 text-sm text-yellow-400">
+                If player doesn’t work, try another server.
+            </p>
+
+            {/* ⏳ LOADING */}
+            {loading && (
+                <div className="text-center py-5 text-white">
+                    Loading player...
+                </div>
+            )}
+
+            {/* 🎬 PLAYER */}
             <iframe
+                key={currentUrl}
                 className="w-full h-screen"
-                allow="autoplay; encrypted-media; gyroscope; picture-in-picture"
+                src={currentUrl}
                 allowFullScreen
                 loading="lazy"
-                src={streamUrl}
-                title={type === 'tv' ? "TV Show Player" : "Movie Player"}
+                onLoad={() => setLoading(false)}
+                onError={handleError}
+                style={{ border: "none" }}
             ></iframe>
+
+            {/* Hidden SEO */}
+            <div style={{ display: "none" }}>
+                {type === 'tv'
+                    ? "watch tv shows online free, latest web series hd, trending tv shows"
+                    : "watch movies online free hd, latest bollywood hollywood movies"}
+            </div>
 
         </div>
     );

@@ -16,7 +16,8 @@ const MovieCard = ({ movieResult }: Props) => {
     <Card
       className="border-0 shadow-md hover:scale-105 transition cursor-pointer"
       onClick={() => {
-        navigate(`/player/${movieResult.id}`);
+        const type = (movieResult as { media_type?: string }).media_type === "tv" ? "tv" : "movie";
+        navigate(`/player/${movieResult.id}?type=${type}`);
       }}
     >
       <CardContent className="p-0">
