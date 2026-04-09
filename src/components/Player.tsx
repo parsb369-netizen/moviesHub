@@ -14,7 +14,7 @@ const Player = () => {
     const [episode, setEpisode] = useState(1);
     const [loading, setLoading] = useState(true);
 
-    // 🎬 SERVERS
+    // 🎬 FINAL CLEAN SERVERS
     const servers = [
         {
             name: "VidSrc",
@@ -24,27 +24,28 @@ const Player = () => {
                     : `https://vidsrc-embed.ru/embed/movie/${playerId}`
         },
         {
-            name: "GoDrive",
+            name: "SuperEmbed",
             getUrl: () =>
                 type === 'tv'
-                    ? `https://godriveplayer.com/embed/tv/${playerId}/${season}/${episode}`
-                    : `https://godriveplayer.com/embed/movie/${playerId}`
+                    ? `https://multiembed.mov/?video_id=${playerId}&tmdb=1&s=${season}&e=${episode}`
+                    : `https://multiembed.mov/?video_id=${playerId}&tmdb=1`
         },
         {
-            name: "VidLink",
+            name: "CloudPlay",
             getUrl: () =>
                 type === 'tv'
-                    ? `https://vidlink.pro/tv/${playerId}/${season}/${episode}`
-                    : `https://vidlink.pro/movie/${playerId}`
+                    ? `https://cloudplay.to/embed/tv/${playerId}/${season}/${episode}`
+                    : `https://cloudplay.to/embed/movie/${playerId}`
         }
     ];
 
     const currentUrl = servers[server].getUrl();
 
-    // 🔁 AUTO SWITCH (LIMITED - iframe restriction)
+    // 🔁 AUTO SWITCH (LIMITED)
     const handleError = () => {
         if (server < servers.length - 1) {
             setServer(server + 1);
+            setLoading(true);
         }
     };
 
@@ -141,7 +142,7 @@ const Player = () => {
 
             {/* ⚠️ MESSAGE */}
             <p className="px-3 text-sm text-yellow-400">
-                If player doesn’t work, try another server.
+                If one server doesn’t work, try another.
             </p>
 
             {/* ⏳ LOADING */}
